@@ -30,19 +30,46 @@ public class ClientDAO extends GenericDAO<Client>{
 
     @Override
     public List<Client> findAll() throws SQLException {
-        List<Client> todos = new ArrayList<>();
+        List<Client> listeClient = new ArrayList<>();
         String sql = "SELECT * FROM client";
 
         try (Statement statement = getConnection().createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
             while (resultSet.next()) {
                 Client client = extractClientFromResultSet(resultSet);
-                todos.add(client);
+                listeClient.add(client);
             }
         }
-        return todos;
+        return listeClient;
     }
-
+    @Override
+    public void delete (int id_client) throws SQLException{
+        String sql = "DELETE FROM client where id = ?";
+        try(PreparedStatement statement = getConnection().prepareStatement(sql)){
+            statement.setInt(1,id_client);
+            statement.executeUpdate();
+        }
+    }
+    @Override
+    public void selectById(int id_client) throws SQLException{
+        String sql = "SELECT * FROM client WHERE id = ?";
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)){
+            statement.setInt(1,id_client);
+            statement.executeUpdate();
+        }
+    }
+    @Override
+    public void updateClient (Client update) throws SQLException{
+        String sql = "UPDATE client SET first_name = ?, last_name = ?, birthday = ?, address = ? where id = ?";
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)){
+            statement.setString(1,update.getFirst_name());
+            statement.setString(2,update.getLast_name());
+            statement.setString(3,update.getBirthday());
+            statement.setString(4,update.getAddress());
+            statement.setInt(5,update.getId_client());
+            statement.executeUpdate();
+        }
+    }
     private Client extractClientFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id_client");
         String credit_card = resultSet.getString("credit_card");
