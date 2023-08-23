@@ -1,4 +1,4 @@
-package ConnectionDatabase;
+package DAO;
 
 import Model.Client;
 
