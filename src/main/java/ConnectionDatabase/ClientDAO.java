@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientDAO extends GenericDAO<Client>{
+public abstract class ClientDAO extends GenericDAO<Client>{
 
     public ClientDAO(Connection connection) {
         super(connection);

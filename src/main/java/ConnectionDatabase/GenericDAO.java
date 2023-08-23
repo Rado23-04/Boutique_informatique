@@ -1,6 +1,7 @@
 package ConnectionDatabase;
 
 import Model.Client;
+import Model.Products;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -16,6 +17,10 @@ public abstract class GenericDAO<Z> {
     }
 
     public abstract List<Client> findAll() throws SQLException;
+
+    public abstract void Insert (Products insert) throws SQLException;
+
+    public abstract List<Products> listeProducts() throws SQLException;
 
     public abstract void delete(int id) throws SQLException;
 
